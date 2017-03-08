@@ -11,8 +11,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 		}
 		Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
 		Treasure t1 = eventData.pointerDrag.GetComponent<Treasure>();
+		Player p1 = this.GetComponent<Player> ();
 
-		if (d != null) {
+
+		if (d != null  && p1 != null && p1.isValidTreasure(t1)) {
 			if (true) {
 
 			}
@@ -25,11 +27,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
 		Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
 		Treasure t1 = eventData.pointerDrag.GetComponent<Treasure>();
+		Player p1 = this.GetComponent<Player> ();
 
-		if (d != null) {
-			if (true) {
 
-			}
+		if (d != null && p1 != null && p1.addBonus(t1)) {
+			
 			d.parentToReturnTo = this.transform; // set draggable objects parent to this instance
 		}
 	}

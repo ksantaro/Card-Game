@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class Player : MonoBehaviour {
 	public int totalBonus = 1;
 	public int smallItems = 0;
 	public int totalItems = 0;
+	public Text textLevel;
+	public Text textBonus;
+
+
 
 	public Dictionary<string,int> slotsMax = new Dictionary<string,int> ();
 
@@ -35,39 +40,46 @@ public class Player : MonoBehaviour {
 
 	public bool addBonus(Treasure t) {
 		if (this.isValidTreasure (t)) {
-			foreach (string key in slots.Keys) {
-				slots [key] = slots [key] + t.slots [key]; //increase type of items
+			foreach (string key in t.slots.Keys) {
+				this.slots [key] = this.slots [key] + t.slots [key]; //increase type of items
 			}
-			slots [t.itemSize]++; //increase item count big or small
+			this.slots [t.itemSize]++; //increase item count big or small
 			totalBonus += t.bonus;
+			//Debug.Log (textName.name);
+			this.textBonus.text = "Total Bonus " + this.totalBonus.ToString();
 			return true;
+		
 		} 
 		return false;
 	}
 
 	public void removeBonus(Treasure t) {
-		foreach (string key in slots.Keys) {
-			slots [key] = slots [key] - t.slots [key];
+		foreach (string key in t.slots.Keys) {
+			this.slots [key] = this.slots [key] - t.slots [key];
 		}
-		slots [t.itemSize]--;
-		totalBonus -= t.bonus;
+		this.slots [t.itemSize]--;
+		this.totalBonus -= t.bonus;
+		this.textBonus.text = "Total Bonus " + this.totalBonus.ToString();
 	}
 
 	public void levelUp () {
 		this.level++;
 		this.totalBonus += 1;
+		this.textLevel.text = "Level " + this.level.ToString();
+
 	}
 
 	public void levelDown() {
 		if (this.level != 1) {
 			this.level--;
 			this.totalBonus -= 1;
+			this.textLevel.text = "Level " + this.level.ToString();
 		}
 	}
 
 	public bool isValidTreasure(Treasure t) {
-		foreach (string key in slots.Keys) {
-			if ((slots [key] + t.slots [key]) > this.slotsMax[key])
+		foreach (string key in t.slots.Keys) {
+			if ((this.slots [key] + t.slots [key]) > this.slotsMax[key])
 				return false;
 		}
 		return true;
