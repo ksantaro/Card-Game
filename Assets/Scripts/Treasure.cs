@@ -6,18 +6,21 @@ public class Treasure : MonoBehaviour {
 
 	public int bonus = 0;
 	public Dictionary<string,int> slots = new Dictionary<string,int> ();
-	public int totalBonus = 1;
-	public int smallItems = 0;
-	public int bigItems = 0;
-	public int totalItems = 0;
+	public string itemSize = "small";
+	public string itemType = "none";
+
+	public int armor = 0;
+	public int hand = 0;
+	public int footGear = 0;
+	public int headGear = 0;
+	public int gold = 0;
 
 	void Start() {
 
-		slots.Add ("armor", 0);
-		slots.Add ("right hand", 0);
-		slots.Add ("left hand", 0);
-		slots.Add ("foot gear", 0);
-		slots.Add ("head gear", 0);
+		slots.Add ("armor", this.armor);
+		slots.Add ("hand", this.hand);
+		slots.Add ("foot gear", this.footGear);
+		slots.Add ("head gear", this.headGear);
 
 	}
 		
